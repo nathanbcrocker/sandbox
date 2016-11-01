@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <contextListener class="com.digiup.sandbox.logging.LoggerStartupListener" />
+    <property name="LOG_PATTERN" value="${LOG_PATTERN}" />
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <Pattern>.%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n</Pattern>
+            <pattern>${LOG_PATTERN}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>TRACE</level>
+            <level>DEBUG</level>
         </filter>
-    </appender>
-
-    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>c:/tmp/rest-demo.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>rest-demo.%d{yyyy-MM-dd}.log</FileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-
-        <encoder>
-            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
-        </encoder>
     </appender>
     <logger name="com.digiup" additivity="false">
         <level value="DEBUG" />
-        <appender-ref ref="dailyRollingFileAppender"/>
         <appender-ref ref="consoleAppender" />
     </logger>
 
