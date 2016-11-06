@@ -5,17 +5,16 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.batch.core.ItemWriteListener;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 public class PersonWriterListener implements ItemWriteListener<Person> {
 
     @Autowired
-    private KieContainer container;
+    private KieContainer kieContainer;
 
     @Override
     public void beforeWrite(List<? extends Person> list) {
-        KieSession kieSession = container.newKieSession();
+        KieSession kieSession = kieContainer.newKieSession();
         for (Person p : list) {
             p.setAge(null);
             kieSession.insert(p);
