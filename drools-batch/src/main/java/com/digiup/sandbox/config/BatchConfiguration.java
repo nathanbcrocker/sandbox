@@ -9,6 +9,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
@@ -17,10 +18,8 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.batch.item.file.transform.LineAggregator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.PropertiesEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -72,6 +71,7 @@ public class BatchConfiguration {
 
     // tag::readerwriterprocessor[]
     @Bean
+    @StepScope
     public FlatFileItemReader<Person> reader() {
         PropertyEditorSupport dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
         Map<Object, PropertyEditorSupport> customEditorTargets = new HashMap<>();
@@ -93,6 +93,7 @@ public class BatchConfiguration {
     }
 
     @Bean
+    @StepScope
     public FlatFileItemWriter<Person> writer() {
         FlatFileItemWriter<Person> writer = new FlatFileItemWriter<>();
         writer.setResource(new FileSystemResource("./person-enriched.psv"));

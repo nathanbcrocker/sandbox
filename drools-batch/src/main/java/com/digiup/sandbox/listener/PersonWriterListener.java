@@ -17,7 +17,6 @@ public class PersonWriterListener implements ItemWriteListener<Person> {
     public void beforeWrite(List<? extends Person> list) {
         KieSession session = container.newKieSession();
         for (Person p : list) {
-            System.out.println(p.getAge());
             p.setAge(null);
             session.insert(p);
         }
