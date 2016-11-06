@@ -2,13 +2,14 @@ import com.digiup.sandbox.model.Person;
 import java.util.Date;
 
 rule "derived age"
+no-loop
 dialect "mvel"
     when
         $p : Person(age == null, dateOfBirth != null)
     then
-        System.out.println("running");
         int age = new Date().getYear() - $p.getDateOfBirth().getYear();
         System.out.println(age);
-        $p.setAge(age);
-        update($p);
+        modify ($p) {
+            setAge(age)
+        }
 end
