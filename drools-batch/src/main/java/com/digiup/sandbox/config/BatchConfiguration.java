@@ -2,12 +2,14 @@ package com.digiup.sandbox.config;
 
 import com.digiup.sandbox.listener.PersonWriterListener;
 import com.digiup.sandbox.model.Person;
+import com.digiup.sandbox.processor.PersonProcessor;
 import org.springframework.batch.core.ItemWriteListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -53,8 +55,14 @@ public class BatchConfiguration {
                 .<Person, Person> chunk(500)
                 .reader(reader())
                 .writer(writer())
+                .processor(processor())
                 .listener(listener())
                 .build();
+    }
+
+    @Bean
+    public ItemProcessor<Person, Person> processor() {
+        return new PersonProcessor();
     }
 
     @Bean

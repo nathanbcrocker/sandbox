@@ -1,10 +1,12 @@
 import com.digiup.sandbox.model.Person;
+import java.util.Date;
 
 rule "derived age"
-    when:
+    when
         p : Person (age == -1, dateOfBirth != null)
-    then:
-        System.out.println(p);
-        p.setAge((int)new Date().getTime() - getDateOfBirth().getTime());
-        modify(p);
+    then
+        int age = (int)new Date().getYear() - p.getDateOfBirth().getYear();
+        System.out.println(age);
+        p.setAge(age);
+        update(p);
 end

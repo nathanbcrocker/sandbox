@@ -16,9 +16,10 @@ public class PersonWriterListener implements ItemWriteListener<Person> {
     @Override
     public void beforeWrite(List<? extends Person> list) {
         KieSession session = container.newKieSession();
-        list.stream().map(l -> session.insert(l));
+        list.forEach(p -> session.insert(p));
         session.fireAllRules();
         session.dispose();
+        session.destroy();
     }
 
     @Override
