@@ -18,25 +18,21 @@ import java.io.IOException;
 @Configuration
 public class DroolsAutoConfiguration {
 
-    @Value("${drools.rulepath")
+    @Value("${drools.rulepath : rules}")
     private String rulesPath;
-
-    private static final String DEFAULT_RULES_PATH = "rules/";
 
     @Bean
     public KieFileSystem kieFileSystem() throws IOException {
-        String path = rulesPath == null ? DEFAULT_RULES_PATH : rulesPath;
         KieFileSystem kieFileSystem = getKieServices().newKieFileSystem();
         for (Resource file : getRuleFiles()) {
-            kieFileSystem.write(ResourceFactory.newClassPathResource(path + file.getFilename(), "UTF-8"));
+            kieFileSystem.write(ResourceFactory.newClassPathResource(rulesPath + file.getFilename(), "UTF-8"));
         }
         return kieFileSystem;
     }
 
     private Resource[] getRuleFiles() throws IOException {
-        String path = rulesPath == null ? DEFAULT_RULES_PATH : rulesPath;
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-        return resourcePatternResolver.getResources("classpath*:" + path + "**/*.*");
+        return resourcePatternResolver.getResources("classpath*:" + rulesPath + "/*.drl");
     }
 
     @Bean
