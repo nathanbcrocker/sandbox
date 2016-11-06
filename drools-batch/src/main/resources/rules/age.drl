@@ -4,7 +4,7 @@ import java.util.Date;
 rule "derived age"
 dialect "mvel"
     when
-        $p : Person(age == null || age != null)
+        $p : Person(age == null)
     then
         System.out.println("running");
         int age = new Date().getYear() - $p.getDateOfBirth().getYear();
