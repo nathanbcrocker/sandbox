@@ -34,6 +34,8 @@ import java.util.Map;
 @EnableBatchProcessing
 public class BatchConfiguration {
 
+    private final static int BATCH_SIZE = 2;
+
     @Autowired
     public JobBuilderFactory jobBuilderFactory;
 
@@ -51,7 +53,7 @@ public class BatchConfiguration {
     @Bean
     public Step step() {
         return stepBuilderFactory.get("step1")
-                .<Person, Person> chunk(500)
+                .<Person, Person> chunk(BATCH_SIZE)
                 .reader(reader())
                 .writer(writer())
                 //.processor(processor())

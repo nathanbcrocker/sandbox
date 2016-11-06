@@ -15,15 +15,15 @@ public class PersonWriterListener implements ItemWriteListener<Person> {
 
     @Override
     public void beforeWrite(List<? extends Person> list) {
-        KieSession session = container.newKieSession();
+        KieSession kieSession = container.newKieSession();
         for (Person p : list) {
             p.setAge(null);
-            session.insert(p);
+            kieSession.insert(p);
         }
 
-        session.fireAllRules();
-        session.dispose();
-        session.destroy();
+        kieSession.fireAllRules();
+        kieSession.dispose();
+        kieSession.destroy();
     }
 
     @Override
