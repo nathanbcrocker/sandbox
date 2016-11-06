@@ -55,7 +55,7 @@ public class BatchConfiguration {
                 .<Person, Person> chunk(500)
                 .reader(reader())
                 .writer(writer())
-                .processor(processor())
+                //.processor(processor())
                 .listener(listener())
                 .build();
     }

@@ -8,7 +8,7 @@ public class Person {
     private String lastName;
     private String countryOfBirth;
     private Date dateOfBirth;
-    private Integer age = -1;
+    private Integer age;
 
     public String getFirstName() {
         return firstName;
