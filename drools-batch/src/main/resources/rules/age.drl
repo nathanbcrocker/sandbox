@@ -8,7 +8,7 @@ when
     $p : Person(age == null, dateOfBirth != null)
 then
         int ageInYears = new Date().getYear() - $p.getDateOfBirth().getYear();
-        System.out.println(age);
+        System.out.println(ageInYears);
         modify ($p) {
             age = ageInYears
         };
