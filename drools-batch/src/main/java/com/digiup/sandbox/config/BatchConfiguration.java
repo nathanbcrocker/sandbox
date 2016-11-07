@@ -37,10 +37,10 @@ public class BatchConfiguration {
     private final static int BATCH_SIZE = 2;
 
     @Autowired
-    public JobBuilderFactory jobBuilderFactory;
+    private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    private StepBuilderFactory stepBuilderFactory;
 
     @Bean
     public Job job() {
