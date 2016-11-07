@@ -1,5 +1,5 @@
-import com.digiup.sandbox.model.Person;
-import java.util.Date;
+import com.digiup.sandbox.model.Person
+import java.util.Date
 dialect "mvel"
 
 rule "derived age"
