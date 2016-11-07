@@ -7,9 +7,9 @@ dialect "mvel"
     when
         $p : Person(age == null, dateOfBirth != null)
     then
-        int age = new Date().getYear() - $p.getDateOfBirth().getYear();
+        int ageInYears = new Date().getYear() - $p.getDateOfBirth().getYear();
         System.out.println(age);
         modify ($p) {
-            setAge(age)
-        }
+            age = ageInYears
+        };
 end
